@@ -164,6 +164,13 @@ static void retry_success(void) {
     (void)button_cleanup(); assert_clean();
 }
 static void check_voltage(int mv, int expected) {
+    // Identity changes must pass through a stable release; debounce each press.
+    bsp_button_ladder_init(&s_ladder);
+    raw_mv = 3300; clock_us += 2000;
+    (void)button_level(&s_drivers[0].base); clock_us += 25000;
+    (void)button_level(&s_drivers[0].base);
+    raw_mv = mv; clock_us += 2000;
+    (void)button_level(&s_drivers[0].base); clock_us += 25000;
     raw_mv = mv; clock_us += 2000;
     const int before = reads;
     for (int i = 0; i < BSP_BTN_COUNT; ++i) {

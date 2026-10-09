@@ -228,6 +228,10 @@ fail:
 }
 
 esp_lcd_panel_handle_t bsp_display_panel(void) { return s_panel; }
+esp_err_t bsp_display_set_visible(bool visible) {
+    if (!s_ready || !s_panel) return ESP_ERR_INVALID_STATE;
+    return esp_lcd_panel_disp_on_off(s_panel, visible);
+}
 
 esp_lcd_panel_io_handle_t bsp_display_io(void) { return s_io; }
 

@@ -2,6 +2,7 @@
 // 移植自 trae_card/components/platform/platform_esp32/src/btn_iot_button.c
 #include "bsp_button.h"
 #include "bsp_pins.h"
+#include "bsp_button_ladder.h"
 #include "iot_button.h"
 #include "esp_adc/adc_oneshot.h"
 #include "esp_adc/adc_cali.h"
@@ -38,6 +39,8 @@ static bsp_adc_button_t s_drivers[BSP_BTN_COUNT];
 static int64_t s_sample_time;
 static int s_sample_mv = -1;
 static bool s_sample_valid;
+static bsp_button_ladder_t s_ladder;
+static int s_filtered_key = -1;
 
 static uint8_t button_level(button_driver_t *driver) {
     if (!s_ready) return BUTTON_INACTIVE;
@@ -49,9 +52,11 @@ static uint8_t button_level(button_driver_t *driver) {
         s_sample_time = now;
         s_sample_valid = true;
         s_sample_mv = -1;
+        s_filtered_key = -1;
         for (int i = 0; i < CONFIG_ADC_BUTTON_SAMPLE_TIMES; ++i) {
             int raw;
             if (adc_oneshot_read(s_adc, BSP_BTN_ADC_CHANNEL, &raw) != ESP_OK) {
+                (void)bsp_button_ladder_sample(&s_ladder, -2, (uint64_t)now / 1000);
                 return BUTTON_INACTIVE;
             }
             sum += raw;
@@ -60,10 +65,16 @@ static uint8_t button_level(button_driver_t *driver) {
                                    &s_sample_mv) != ESP_OK) {
             s_sample_mv = -1;
         }
+        int raw_key = s_sample_mv < 0 ? -2 : -1;
+        for (unsigned i = 0; i < BSP_BTN_COUNT; ++i) {
+            if (s_sample_mv >= BTN_MV[i][0] && s_sample_mv < BTN_MV[i][1]) {
+                raw_key = (int)i;
+                break;
+            }
+        }
+        s_filtered_key = bsp_button_ladder_sample(&s_ladder, raw_key, (uint64_t)now / 1000);
     }
-    // Half-open windows prevent two keys from matching a shared boundary.
-    return s_sample_mv >= BTN_MV[button->index][0] &&
-           s_sample_mv < BTN_MV[button->index][1] ? BUTTON_ACTIVE : BUTTON_INACTIVE;
+    return s_filtered_key == (int)button->index ? BUTTON_ACTIVE : BUTTON_INACTIVE;
 }
 
 static esp_err_t button_driver_delete(button_driver_t *driver) {
@@ -219,6 +230,7 @@ esp_err_t bsp_button_init(bsp_btn_cb_t cb, void *user) {
     }
 
     s_sample_valid = false;
+    bsp_button_ladder_init(&s_ladder);
     s_ready = true;
     ESP_LOGI(TAG, "按键就绪:ADC1_CH%d 三键分压,短按 %dms 长按 %dms",
              BSP_BTN_ADC_CHANNEL, BSP_BTN_SHORT_PRESS_MS, BSP_BTN_LONG_PRESS_MS);
