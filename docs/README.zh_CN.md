@@ -43,6 +43,9 @@
 
 ## 找到你的起点
 
+本开发分支提供 [Codex Passport（三键蓝牙控制面板）](../README.zh_CN.md)。
+[验证记录](codex-passport-validation.zh_CN.md)分别列出自动检查结果与待执行的设备、电脑验收。
+
 | 我想要…… | 从这里开始 |
 | --- | --- |
 | 使用设备、体验官方玩法 | [快速上手](https://ai-passport.folotoy.cn/guides/getting-started/) · [官方玩法](https://ai-passport.folotoy.cn/plays/) |
@@ -214,3 +217,5 @@ LICENSE                  仓库许可证
 [参与贡献](../.github/CONTRIBUTING.zh_CN.md) · [获取帮助](../.github/SUPPORT.zh_CN.md) · [行为准则](../.github/CODE_OF_CONDUCT.zh_CN.md) · [安全说明](../.github/SECURITY.zh_CN.md) · [MIT 许可证](../LICENSE)
 
 AI 助手请从 [`AGENTS.md`](../AGENTS.md) 开始，再按任务路由读取相关文档。
+
+- [控制面板使用与协议指南](codex-passport-guide.zh_CN.md)。

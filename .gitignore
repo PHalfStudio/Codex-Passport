@@ -11,3 +11,18 @@ managed_components/
 /.agents/skills/passport-build
 /.agents/skills/passport-device-test
 /.agents/skills/passport-debug
+
+# Local release bundles, editor/OS debris and Python caches.
+/dist/
+.DS_Store
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Local credentials and private runtime configuration.
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p8

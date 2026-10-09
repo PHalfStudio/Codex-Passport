@@ -44,6 +44,10 @@ it anything—from a pocket companion to something no one has imagined yet.
 
 ## Find your starting point
 
+This development branch contains [Codex Passport](../README.md), an experimental
+three-button BLE control panel. Its [validation record](codex-passport-validation.md)
+separates automated checks from pending device and desktop acceptance.
+
 | I want to… | Start here |
 | --- | --- |
 | Use the device or try an official play | [Getting started](https://ai-passport.folotoy.cn/guides/getting-started/) · [Official plays](https://ai-passport.folotoy.cn/plays/) |
@@ -220,3 +224,5 @@ provide reference material. Choose the entry that matches your task.
 [Contribute](../.github/CONTRIBUTING.md) · [Get help](../.github/SUPPORT.md) · [Code of conduct](../.github/CODE_OF_CONDUCT.md) · [Security](../.github/SECURITY.md) · [MIT License](../LICENSE)
 
 AI agents: start with [`AGENTS.md`](../AGENTS.md) and follow its task-specific routing.
+
+- [Codex Passport user and protocol guide](codex-passport-guide.md).
