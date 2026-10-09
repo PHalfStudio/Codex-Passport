@@ -1,16 +1,7 @@
 idf_component_register(
-    SRCS "main.c"
-         "demo_navigation.c"
-         "ui_pixel.c"
-         "ui_pixel_math.c"
-         "demo_display.c"
-         "demo_button.c"
-         "demo_audio.c"
-         "demo_battery.c"
-         "demo_radio.c"
-         "demo_wifi.c"
-         "demo_ble.c"
-         "demo_low_power.c"
+    SRCS "codex_app.c" "codex_input.c" "codex_virtual_keys.c" "codex_local.c"
+         "codex_ui.c" "codex_ble_hid.c" "codex_ble_link.c"
+         "codex_protocol.c" "codex_state.c"
     INCLUDE_DIRS "."
-    REQUIRES bsp bt esp_event esp_hw_support esp_netif esp_timer esp_wifi nvs_flash
+    REQUIRES bsp bt esp_timer json nvs_flash
 )

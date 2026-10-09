@@ -1,0 +1,10 @@
+menu "Codex Passport"
+    config CODEX_DIAL_LEGACY_ALIAS
+        bool "Use legacy ENC instead of ENC_CLK for dial press"
+        default n
+        help
+            Enable only after logs and a real host test establish a need.
+    config CODEX_PROTECT_FORK_SEND
+        bool "Also require local confirmation for Fork and Send"
+        default n
+endmenu
