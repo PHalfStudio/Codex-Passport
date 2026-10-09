@@ -46,7 +46,7 @@ it anything—from a pocket companion to something no one has imagined yet.
 
 This development branch contains [Codex Passport](../README.md), an experimental
 three-button BLE control panel. Its [validation record](codex-passport-validation.md)
-separates automated checks from pending device and desktop acceptance.
+records automated checks and owner-confirmed device and desktop acceptance.
 
 | I want to… | Start here |
 | --- | --- |

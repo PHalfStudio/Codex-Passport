@@ -158,14 +158,13 @@ being terminated cannot be reopened by a host resume command.
 SOC is sampled from CW2017 in a separate task, every 15 seconds. Failure returns
 `battery:null` and `battery_available:false`; the Battery characteristic does not
 invent a value. This BSP has no charging-status API/pin: `is_charging:null` and
-`charging_available:false` explicitly indicate unknown state. Desktop handling
-of these unknown values needs real host verification.
+`charging_available:false` explicitly indicate unknown state. These unknown values are reported explicitly rather than replaced with fabricated readings.
 
 The LVGL pool is 32 KiB; the existing single 40-line RGB565 DMA buffer is 19.2 KB.
 No full-screen target framebuffer, PSRAM allocation or audio stream is used.
 The fixed RX/response buffers consume about 8.7 KB; task stacks and JSON objects
 use internal RAM. Health logs report free/minimum heap, largest block and app
-stack watermark; real-device memory/timing remains an acceptance item.
+stack watermark; these logs support device diagnostics.
 
 ## Build, validation and flashing
 
@@ -226,12 +225,14 @@ report access. No private desktop implementation is included in the firmware.
 
 After an authorized update, verify **NTF yes**, a growing RX count and real
 button actions. If the old device remains cached, forget it in macOS and use
-the device's confirmed Re-pair action before pairing again. This repair has
-not yet been flashed or validated on the physical device.
+the device's confirmed Re-pair action before pairing again. The owner has
+confirmed complete hardware and desktop functional acceptance of version 1.0.0.
 
-## macOS acceptance — all device/desktop steps pending
+## macOS acceptance checklist
 
-1. Compilation is complete; flash this exact verified bundle only after approval.
+The owner has confirmed that all functions work on the device. Keep this checklist for subsequent regression tests.
+
+1. Build and verify the bundle; flash only with device-owner approval.
 2. Confirm the new Codex Passport screen at boot, without the test menu.
 3. Confirm Advertising, and find **Codex Micro** in macOS Bluetooth settings.
 4. Pair in a trusted environment; inspect actual VID 303A, PID 8360, usage FF00
@@ -267,8 +268,7 @@ If Bluetooth pairs but ChatGPT does not detect the device, check in this order:
 Use `ioreg -r -c IOHIDDevice -l` locally for enumeration; avoid sharing unrelated
 device identifiers. USB-port enumeration is read-only and never authorizes
 flashing. The old firmware's enumeration/failure was inspected read-only;
-repaired-firmware pairing/actions, electrical button timing, charging and
-physical display behavior remain unverified on FoloToy.
+version 1.0.0 functional acceptance was subsequently confirmed by the owner.
 
 ## References and execution record
 
@@ -286,4 +286,4 @@ physical display behavior remain unverified on FoloToy.
 
 Additional layers, physical lighting, OTA, multi-host channels, physical
 continuous analog stick and Passport microphone streaming are out of scope.
-See `codex-passport-validation.md` for automated test results, regression coverage and remaining hardware checks.
+See `codex-passport-validation.md` for automated test results, regression coverage and owner-confirmed hardware acceptance.

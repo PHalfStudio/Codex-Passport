@@ -2,12 +2,12 @@
 
 # Validation and compatibility
 
-Validation date: 2026-10-09. Firmware: 0.1.1-passport. Toolchain: ESP-IDF 5.5.3.
+Validation date: 2026-10-09. Firmware: 1.0.0. Toolchain: ESP-IDF 5.5.3.
 
 - Build: PASS
 - Host tests: PASS
-- Device tests: NOT RUN for the repaired image
-- Unverified: physical controls, display, radio pairing, notification/RPC round trips and desktop actions with the repaired firmware.
+- Device tests: PASS, confirmed by the device owner.
+- Hardware acceptance: the owner reports that all functions have been tested and are working. This records owner-performed acceptance separately from the automated checks below.
 
 ## Automated checks
 
@@ -48,8 +48,8 @@ python3 tools/archive_firmware.py verify build/firmware/<full-image-sha256>
 
 Keep the matching ELF, map and manifest alongside release work; an ELF from a different build timestamp is not interchangeable. Build history, local logs and dependency caches are not committed. The merged image is flashed at offset `0x0`; it can reset NVS settings and bonds. No full-chip erase is needed.
 
-## Resource checks and remaining acceptance
+## Resource checks and hardware acceptance
 
 The host UI test uses a 32 KiB LVGL pool and reported 5,232 bytes free after the exercise, with a peak use of 23,568 bytes. These are host allocator values, not board heap measurements. The linked firmware reported 154,058 bytes of DRAM used and 167,238 remaining before runtime allocations. The target uses the existing 19.2 KB partial LCD buffer, not a full-screen framebuffer.
 
-The older firmware's enumeration and authentication failure were observed read-only. No repaired-firmware hardware acceptance is claimed. Follow the [complete manual checklist and troubleshooting table](codex-passport-guide.md): boot, display, all keys, notification and RPC exchange, computer microphone behavior, reconnect, bond reuse, actual battery, unknown charging state, brightness and screen wake. Flashing requires explicit device-owner authorization.
+The older firmware's enumeration and authentication failure were observed read-only. The device owner has confirmed full functional acceptance of version 1.0.0. Use the [complete manual checklist and troubleshooting table](codex-passport-guide.md): boot, display, all keys, notification and RPC exchange, computer microphone behavior, reconnect, bond reuse, actual battery, unknown charging state, brightness and screen wake. Flashing requires explicit device-owner authorization.

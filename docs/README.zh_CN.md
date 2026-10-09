@@ -44,7 +44,7 @@
 ## 找到你的起点
 
 本开发分支提供 [Codex Passport（三键蓝牙控制面板）](../README.zh_CN.md)。
-[验证记录](codex-passport-validation.zh_CN.md)分别列出自动检查结果与待执行的设备、电脑验收。
+[验证记录](codex-passport-validation.zh_CN.md)分别列出自动检查结果与设备所有者确认通过的设备、电脑验收。
 
 | 我想要…… | 从这里开始 |
 | --- | --- |

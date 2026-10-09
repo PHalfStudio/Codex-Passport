@@ -103,7 +103,7 @@ A merged flash can reset stored settings and bonds. A full-chip erase is not req
 3. Open **Settings → Codex Micro** and check device detection.
 4. Check notification subscription and real button actions; Bluetooth connection alone is not application acceptance.
 
-Pairing uses encrypted Secure Connections Just Works, without a verification code. The [acceptance checklist](docs/codex-passport-guide.md#macos-acceptance--all-devicedesktop-steps-pending) includes all controls, reconnects and diagnostics.
+Pairing uses encrypted Secure Connections Just Works, without a verification code. The [acceptance checklist](docs/codex-passport-guide.md#macos-acceptance-checklist) includes all controls, reconnects and diagnostics.
 
 ## Project layout
 
@@ -120,9 +120,9 @@ Upstream demo sources remain as hardware references and regression fixtures; the
 
 ## Compatibility and validation
 
-**Build: PASS · Host tests: PASS · Repaired-firmware device tests: NOT RUN.**
+**Build: PASS · Host tests: PASS · Device tests: PASS (owner-confirmed).**
 
-Version 0.1.1 corrects an encrypted Just Works access mismatch and separates input readiness from host RPC detection. The regression is reproduced and tested against the pinned SDK's permission code. Real-device and desktop acceptance of the repaired image remains pending; see the [validation record](docs/codex-passport-validation.md).
+Version 0.1.1 corrects an encrypted Just Works access mismatch and separates input readiness from host RPC detection. The regression is reproduced and tested against the pinned SDK's permission code. The owner has confirmed complete hardware and desktop functional acceptance for version 1.0.0; see the [validation record](docs/codex-passport-validation.md).
 
 The protocol is undocumented by its vendor, and desktop updates may change compatibility. Extra layers, OTA, multi-host channels, physical lighting and hardware microphone streaming are outside this version's scope.
 
