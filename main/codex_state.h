@@ -2,7 +2,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-#define CODEX_VERSION "0.1.1-passport"
+#define CODEX_VERSION "1.0.0"
 #define CODEX_AGENTS 6
 typedef enum {
     CODEX_DISCONNECTED, CODEX_ADVERTISING, CODEX_CONNECTED,
