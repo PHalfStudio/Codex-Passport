@@ -8,9 +8,19 @@ usage() {
     echo "Usage: $0 [--all|--static|--firmware]" >&2
 }
 
+dispose_directory() {
+    if command -v trash >/dev/null 2>&1 && trash "$1"; then
+        :
+    else
+        echo "Retained temporary evidence: $1" >&2
+    fi
+}
+
 run_static_checks() {
     local actionlint_bin
     local test_dir
+    local gc_sections="-Wl,--gc-sections"
+    if [[ "$(uname -s)" == Darwin ]]; then gc_sections="-Wl,-dead_strip"; fi
 
     python3 tools/check_repo.py
 
@@ -45,7 +55,7 @@ run_static_checks() {
     "${test_dir}/test_bsp_es8311_sleep_check"
     "${CC:-cc}" -std=c11 -Wall -Wextra -Werror \
         -Itests/bsp_stubs -Icomponents/bsp/include \
-        tests/test_bsp_button.c -o "${test_dir}/test_bsp_button"
+        tests/test_bsp_button.c components/bsp/src/bsp_button_ladder.c -o "${test_dir}/test_bsp_button"
     "${test_dir}/test_bsp_button"
     "${CC:-cc}" -std=c11 -Wall -Wextra -Werror \
         -Itests/bsp_stubs -Icomponents/bsp/include \
@@ -60,7 +70,7 @@ run_static_checks() {
     for demo in audio low_power ble wifi; do
         "${CC:-cc}" -std=c11 -Wall -Wextra -Werror \
             -ffunction-sections -fdata-sections -Itests/demo_stubs -Imain \
-            "tests/test_demo_${demo}_runtime.c" -Wl,--gc-sections \
+            "tests/test_demo_${demo}_runtime.c" "${gc_sections}" \
             -o "${test_dir}/test_demo_${demo}_runtime"
         "${test_dir}/test_demo_${demo}_runtime"
     done
@@ -70,7 +80,8 @@ run_static_checks() {
     PYTHONDONTWRITEBYTECODE=1 python3 tests/test_verify_firmware.py
     PYTHONDONTWRITEBYTECODE=1 python3 tests/test_archive_firmware.py
     PYTHONDONTWRITEBYTECODE=1 python3 tests/test_install_passport_skills.py
-    rm -rf "${test_dir}"
+    ./tools/test_codex.sh "${test_dir}/codex"
+    dispose_directory "${test_dir}"
     echo "Host tests: PASS"
 }
 
@@ -83,11 +94,12 @@ run_firmware_checks() (
     fi
 
     validation_build_dir="$(mktemp -d /tmp/ai-passport-firmware.XXXXXX)"
-    trap 'case "${validation_build_dir}" in /tmp/ai-passport-firmware.*) rm -rf -- "${validation_build_dir}" ;; esac' EXIT
+    trap 'case "${validation_build_dir}" in /tmp/ai-passport-firmware.*) dispose_directory "${validation_build_dir}" ;; esac' EXIT
 
     SDKCONFIG_DEFAULTS="${repo_root}/sdkconfig.defaults" \
         idf.py -B "${validation_build_dir}" \
         -D "SDKCONFIG=${validation_build_dir}/sdkconfig" build
+    ./tools/test_codex_ui.sh "${repo_root}/build/codex-ui"
     idf.py -B "${validation_build_dir}" merge-bin \
         -o "${validation_build_dir}/FoloToy-AI-Passport-full.bin"
     python3 tools/verify_firmware.py "${validation_build_dir}"

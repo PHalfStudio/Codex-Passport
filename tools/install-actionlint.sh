@@ -45,7 +45,7 @@ if ! curl --fail --location --silent --show-error --retry 3 --retry-all-errors \
         echo "actionlint download failed and GitHub CLI is unavailable" >&2
         exit 1
     fi
-    rm -f "${archive_path}"
+    if [[ -e "${archive_path}" ]]; then trash "${archive_path}"; fi
     gh release download "v${version}" --repo rhysd/actionlint \
         --pattern "${archive_name}" --dir "${destination}"
 fi
