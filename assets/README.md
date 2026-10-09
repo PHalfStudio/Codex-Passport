@@ -44,4 +44,22 @@ Store reusable music and sound-effect sources in `music/`.
 
 ## Codex Passport icon
 
-[`images/codex-passport-icon.png`](images/codex-passport-icon.png) is a 1254 × 1254 transparent PNG generated with the built-in image tool on 2026-10-09 for the project README. Prompt: a dark handheld panel, six cyan tiles and three buttons, no text or vendor logos. It is an illustration, not a hardware photograph. Distributed with this project under its MIT license; no third-party brand artwork was supplied.
+[`images/codex-passport-icon.png`](images/codex-passport-icon.png) is a 1254 × 1254 transparent PNG regenerated with the built-in image tool on 2026-10-09. The user's hardware photograph informed the upright front view, three right-side buttons, top strap slot and lower speaker grille. The display carries a terminal prompt mark. This project illustration is not a real boot screen and does not imply official endorsement. It is distributed under the project's MIT license; the original user photograph is not included.
+
+## UI captures
+
+`images/ui/` contains six lossless 240 × 320 PNGs for both homepages: agents, commands, held dial, local sidebar, brightness and approval confirmation. They come from the actual application UI and pinned LVGL 9.5.0. Connection, battery and colors are fixtures. These are neither AI-generated mockups nor device photographs and do not replace hardware validation. They use the project license.
+
+With development dependencies available, regenerate the host captures:
+
+```bash
+./tools/test_codex_ui.sh /tmp/codex-passport-readme-ui
+```
+
+The test exports ten PPM frames. Convert the selected frames losslessly with the system image tool, without altering layout or pixel content. For example, on macOS:
+
+```bash
+sips -s format png /tmp/codex-passport-readme-ui/agents.ppm --out assets/images/ui/agents.png
+```
+
+Only the PNGs belong in source control; test executables, LVGL build caches and intermediate PPMs do not.

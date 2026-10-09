@@ -19,6 +19,25 @@
 
 **麦克风按钮控制的是电脑麦克风。** 设备内置麦克风不会向电脑传输音频。板级接口无法测量充电状态时，会报告未知，而不是伪造结果。
 
+## 界面演示
+
+以下是电脑端运行本项目真实界面代码生成的 **240 × 320 渲染图**，不是设备拍照，也不是生成式图片。连接、电量和智能体颜色来自测试样例，仅用于展示布局，不代表真实电脑交互或实机验收结果。
+
+<table>
+  <tr><th>智能体状态</th><th>命令与麦克风</th><th>摇杆与旋钮</th></tr>
+  <tr>
+    <td><img src="assets/images/ui/agents.png" width="240" alt="智能体状态"></td>
+    <td><img src="assets/images/ui/commands.png" width="240" alt="命令与麦克风"></td>
+    <td><img src="assets/images/ui/dial-held.png" width="240" alt="摇杆与旋钮"></td>
+  </tr>
+  <tr><th>本机侧边栏</th><th>屏幕亮度</th><th>审批二次确认</th></tr>
+  <tr>
+    <td><img src="assets/images/ui/sidebar.png" width="240" alt="本机侧边栏"></td>
+    <td><img src="assets/images/ui/brightness.png" width="240" alt="屏幕亮度"></td>
+    <td><img src="assets/images/ui/confirmation.png" width="240" alt="审批二次确认"></td>
+  </tr>
+</table>
+
 ## 硬件与环境
 
 | 项目 | 要求 |
@@ -121,4 +140,4 @@ idf.py -p PORT monitor
 - [codex-micro-4-core2（移植参考）](https://github.com/imliubo/codex-micro-4-core2)：蓝牙传输实现参考。
 - [freemicro（逆向参考）](https://github.com/eliBenven/freemicro)：协议和出厂默认行为研究。
 
-感谢 [Linux DO（社区）](https://linux.do) 的分享与交流。
+感谢 [Linux DO（社区）](https://linux.do) 的分享与交流，**真诚**、**友善**、**团结**、**专业**，共建你我引以为荣之社区。

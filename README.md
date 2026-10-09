@@ -19,6 +19,25 @@ No custom Mac app, plugin, Wi-Fi connection, cloud relay or API key is required.
 
 **Mic controls the computer's microphone.** The Passport's built-in microphone does not stream audio to the computer. Charging state is reported as unknown where the BSP cannot measure it.
 
+## Interface preview
+
+These **240 × 320 host-rendered captures** run the actual application UI code, not a mockup or an AI-generated screen. Connection, battery and Agent colors are test fixtures. The images demonstrate layout, not live desktop interaction or hardware acceptance.
+
+<table>
+  <tr><th>Agents</th><th>Commands and microphone</th><th>Joystick and dial</th></tr>
+  <tr>
+    <td><img src="assets/images/ui/agents.png" width="240" alt="Agents"></td>
+    <td><img src="assets/images/ui/commands.png" width="240" alt="Commands and microphone"></td>
+    <td><img src="assets/images/ui/dial-held.png" width="240" alt="Joystick and dial"></td>
+  </tr>
+  <tr><th>Local sidebar</th><th>Brightness</th><th>Approval confirmation</th></tr>
+  <tr>
+    <td><img src="assets/images/ui/sidebar.png" width="240" alt="Local sidebar"></td>
+    <td><img src="assets/images/ui/brightness.png" width="240" alt="Brightness"></td>
+    <td><img src="assets/images/ui/confirmation.png" width="240" alt="Approval confirmation"></td>
+  </tr>
+</table>
+
 ## Hardware and requirements
 
 | Item | Requirement |
@@ -121,4 +140,4 @@ Keep changes focused and run the relevant tests, then the complete validation ga
 - [codex-micro-4-core2](https://github.com/imliubo/codex-micro-4-core2) — ESP32 transport reference.
 - [freemicro](https://github.com/eliBenven/freemicro) — protocol and factory-default research.
 
-Thanks to the [Linux DO community](https://linux.do) for sharing and discussion.
+Thanks to the [Linux DO community](https://linux.do) for sharing and discussion, **Sincerity, Kindness, Unity, and Professionalism** — Together, we build a community we can all be proud of.
